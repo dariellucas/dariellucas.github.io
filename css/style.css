@@ -1,0 +1,42 @@
+.top-zone{
+    margin: 10px 0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #eee;
+}
+.bg-hero {
+	background-image: url(../img/cover.jpg);
+	background-size: cover;
+	height: 300px;
+}
+.ava {
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    border: 1px solid #eee;
+}
+.name{
+    margin-top: 77px;
+}
+.des{
+    font-size: 24px;
+    font-weight: 300;
+}
+.loc img{
+	width: 20px;
+}
+.intro{
+    border-top: 1px solid #eee;
+    margin: 0 20px;
+    padding: 20px;
+}
+.mid-zone {
+	margin: 10px 0;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    padding: 20px;
+}
