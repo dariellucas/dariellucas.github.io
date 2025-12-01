@@ -1,115 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Đỗ Trọng Nghĩa</title>
-
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
+    <title>Duc Thanh Management V4.0</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
   </head>
   <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Google Sheets WebApp</p>
+          <h1>Duc Thanh Management <span class="badge">V4.0</span></h1>
+          <p class="lede">
+            Quản lý đơn hàng và hàng hóa được đồng bộ trực tiếp với Google Sheets/Google Apps Script.
+            Bản demo này mô phỏng hai sheet "Đơn hàng" và "Hàng hóa" để bạn có thể thử luồng nhập liệu, kiểm tra số liệu,
+            và xem cấu trúc API phía client.
+          </p>
+        </div>
+        <div class="header-actions">
+          <label class="script-label" for="scriptUrl">Google Apps Script URL</label>
+          <div class="input-group">
+            <span class="input-group-addon">https://</span>
+            <input id="scriptUrl" type="text" class="form-control" placeholder="script.google.com/macros/.../exec">
+          </div>
+          <small class="text-muted">Điền URL web app của bạn để kết nối thực tế.</small>
+        </div>
+      </header>
 
-    <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="top-zone">
-				<div class="bg-hero"></div>
-				<img src="img/emo.jpg" class="img-responsive img-circle ava" alt="Responsive image">
-				<h2 class="text-center name">
-					Dariel
-				</h2>
-				<h4 class="text-center des">Google Designer Cloning Expert</h4>
-				<p class="text-center loc">
-					<img src="https://image.flaticon.com/icons/png/128/143/143960.png" alt="" /> Hanoi, Vietnam
-				</p>
-				<p class="text-center intro">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</p>
-			</div>
-			<div class="mid-zone">
-				<h3>Experience</h3>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="media">
-							 <a href="#" class="pull-left"><img alt="Bootstrap Media Preview" src="http://lorempixel.com/64/64/" class="media-object" /></a>
-							<div class="media-body">
-								<h4 class="media-heading">
-									Frontend developer Trainers
-								</h4> CMC Corporation
-								<ol>
-									<li>
-										Lorem ipsum dolor sit amet
-									</li>
-									<li>
-										Consectetur adipiscing elit
-									</li>
-								</ol>
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-4">
-								<div class="thumbnail">
-									<img alt="Bootstrap Thumbnail First" src="http://lorempixel.com/output/people-q-c-600-200-1.jpg" />
-									<div class="caption">
-										<h3>
-											Thumbnail label
-										</h3>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-										</p>
-										<p>
-											<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="thumbnail">
-									<img alt="Bootstrap Thumbnail Second" src="http://lorempixel.com/output/city-q-c-600-200-1.jpg" />
-									<div class="caption">
-										<h3>
-											Thumbnail label
-										</h3>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-										</p>
-										<p>
-											<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="thumbnail">
-									<img alt="Bootstrap Thumbnail Third" src="http://lorempixel.com/output/sports-q-c-600-200-1.jpg" />
-									<div class="caption">
-										<h3>
-											Thumbnail label
-										</h3>
-										<p>
-											Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-										</p>
-										<p>
-											<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+      <main class="container-fluid">
+        <section class="row summary-row">
+          <div class="col-md-4">
+            <div class="summary-card">
+              <p class="label">Tổng số đơn hàng</p>
+              <p class="value" id="orderCount">0</p>
+              <p class="hint">Tự động cộng dồn khi thêm mới.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="summary-card">
+              <p class="label">Giá trị đơn hàng</p>
+              <p class="value" id="orderValue">0 ₫</p>
+              <p class="hint">Gồm tổng tiền hàng + thuế suất.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="summary-card">
+              <p class="label">Giá trị tồn kho</p>
+              <p class="value" id="inventoryValue">0 ₫</p>
+              <p class="hint">Được tính từ bảng hàng hóa.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Bảng 1</p>
+              <h2>Đơn hàng</h2>
+              <p class="panel-desc">
+                Quản lý trạng thái đơn, doanh thu và thuế suất. Bạn có thể lọc nhanh, thêm đơn mới
+                hoặc chuẩn bị payload gửi lên Apps Script.
+              </p>
+            </div>
+            <div class="panel-actions">
+              <div class="search-box">
+                <span class="glyphicon glyphicon-search"></span>
+                <input id="orderSearch" type="search" placeholder="Tìm theo ID, tên đơn, nhân viên..." />
+              </div>
+              <button id="openOrderForm" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Thêm đơn hàng
+              </button>
+            </div>
+          </div>
+
+          <div id="orderForm" class="inline-form hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="orderId">ID đơn hàng</label>
+                <input type="text" id="orderId" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="orderCode">Mã đơn hàng</label>
+                <input type="text" id="orderCode" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="orderName">Tên đơn hàng</label>
+                <input type="text" id="orderName" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="employeeId">ID nhân viên</label>
+                <input type="text" id="employeeId" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="orderDate">Ngày đặt hàng</label>
+                <input type="date" id="orderDate" class="form-control" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="orderSubtotal">Tổng tiền hàng</label>
+                <input type="number" id="orderSubtotal" class="form-control" min="0" />
+              </div>
+              <div class="form-group">
+                <label for="orderTax">Thuế suất (%)</label>
+                <input type="number" id="orderTax" class="form-control" min="0" step="0.01" />
+              </div>
+              <div class="form-group">
+                <label for="orderNote">Ghi chú</label>
+                <input type="text" id="orderNote" class="form-control" />
+              </div>
+              <div class="form-group form-actions">
+                <button id="saveOrder" class="btn btn-success">Lưu đơn</button>
+                <button id="cancelOrder" class="btn btn-link">Hủy</button>
+              </div>
+            </div>
+            <div class="form-hint">Mọi trường đều được lưu vào cùng một dòng của sheet "Đơn hàng".</div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover" id="ordersTable">
+              <thead>
+                <tr>
+                  <th>ID đơn hàng</th>
+                  <th>Mã đơn hàng</th>
+                  <th>Tên đơn hàng</th>
+                  <th>ID nhân viên</th>
+                  <th>Ngày đặt hàng</th>
+                  <th class="text-right">Tổng tiền hàng</th>
+                  <th class="text-right">Thuế suất</th>
+                  <th class="text-right">Tổng giá trị đơn</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Bảng 2</p>
+              <h2>Hàng hóa</h2>
+              <p class="panel-desc">
+                Dữ liệu tồn kho gắn với từng đơn hàng. Số lượng, đơn giá và thuế suất sẽ tự tính tổng giá trị.
+              </p>
+            </div>
+            <div class="panel-actions">
+              <div class="search-box">
+                <span class="glyphicon glyphicon-search"></span>
+                <input id="productSearch" type="search" placeholder="Tìm theo ID hàng, tên hàng, đơn hàng..." />
+              </div>
+              <button id="openProductForm" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Thêm hàng hóa
+              </button>
+            </div>
+          </div>
+
+          <div id="productForm" class="inline-form hidden">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="itemId">ID hàng hóa</label>
+                <input type="text" id="itemId" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="itemOrderId">ID đơn hàng</label>
+                <input type="text" id="itemOrderId" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="itemName">Tên hàng hóa</label>
+                <input type="text" id="itemName" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label for="itemQuantity">Số lượng</label>
+                <input type="number" id="itemQuantity" class="form-control" min="0" />
+              </div>
+              <div class="form-group">
+                <label for="itemPrice">Đơn giá</label>
+                <input type="number" id="itemPrice" class="form-control" min="0" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="itemTax">Thuế suất (%)</label>
+                <input type="number" id="itemTax" class="form-control" min="0" step="0.01" />
+              </div>
+              <div class="form-group">
+                <label for="itemNote">Ghi chú</label>
+                <input type="text" id="itemNote" class="form-control" />
+              </div>
+              <div class="form-group form-actions">
+                <button id="saveProduct" class="btn btn-success">Lưu hàng hóa</button>
+                <button id="cancelProduct" class="btn btn-link">Hủy</button>
+              </div>
+            </div>
+            <div class="form-hint">Nhập đúng ID đơn hàng để liên kết với bảng "Đơn hàng".</div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover" id="productsTable">
+              <thead>
+                <tr>
+                  <th>ID hàng hóa</th>
+                  <th>ID đơn hàng</th>
+                  <th>Tên hàng hóa</th>
+                  <th class="text-right">Số lượng</th>
+                  <th class="text-right">Đơn giá</th>
+                  <th class="text-right">Thành tiền hàng</th>
+                  <th class="text-right">Thuế suất</th>
+                  <th class="text-right">Tổng giá trị</th>
+                  <th>Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
